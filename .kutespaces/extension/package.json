@@ -1,0 +1,219 @@
+{
+  "name": "kutespaces",
+  "publisher": "Shark",
+  "displayName": "Kutespaces",
+  "description": "Try Cloud Native tools seamlessly with Kutespaces in the cloud",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [
+    "workspaceContains:/.kutespaces",
+    "onView:guideComponents",
+    "onCommand:kutespaces.revealInspector",
+    "onCommand:kutespaces.openREADME",
+    "onCommand:kutespaces.openTutorial",
+    "onCommand:kutespaces.startNextMission",
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "kutespaces.revealInspector",
+        "title": "Reveal Kutespaces Inspector"
+      },
+      {
+        "command": "kutespaces.openREADME",
+        "title": "Open README"
+      },
+      {
+        "command": "kutespaces.openTutorial",
+        "title": "Open Tutorial"
+      },
+      {
+        "command": "kutespaces.startNextMission",
+        "title": "Start Next Mission"
+      },
+      {
+        "command": "kutespaces.abortMission",
+        "title": "Abort Mission",
+        "icon": {
+          "light": "media/stop-light.svg",
+          "dark": "media/stop-dark.svg"
+        }
+      },
+      {
+        "command": "kutespaces.completeMission",
+        "title": "Complete Mission",
+        "icon": {
+          "light": "media/check-bold-light.svg",
+          "dark": "media/check-bold-dark.svg"
+        }
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "kutespaces-inspector",
+          "title": "Kutespaces Inspector",
+          "icon": "media/test-tube.svg"
+        }
+      ]
+    },
+    "views": {
+      "kutespaces-inspector": [
+        {
+          "id": "kutespacesResources",
+          "name": "Resources"
+        },
+        {
+          "id": "kutespacesMissionsList",
+          "name": "Missions"
+        },
+        {
+          "id": "kutespacesMissionTasks",
+          "name": "Tasks"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "kutespaces.abortMission",
+          "when": "view == kutespacesMissionTasks",
+          "group": "navigation"
+        },
+        {
+          "command": "kutespaces.completeMission",
+          "when": "view == kutespacesMissionTasks",
+          "group": "navigation"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "kutespacesMissionTasks",
+        "contents": "There is currently no active mission.\n[Start Next Mission](command:kutespaces.startNextMission)"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "tutorial",
+        "title": "cdk8s on Kutespaces",
+        "description": "A tutorial on using this space to master the CDK8s.",
+        "steps": [
+          {
+            "id": "inspector",
+            "title": "🧪 Open Kutespaces Inspector",
+            "description": "The inspector shows you all the resources you need and your mission progress. Find it at the 🧪 Tube Icon in the side bar.\n\n[Reveal Kutespaces Inspector](command:kutespaces.revealInspector)",
+            "media": {
+              "image": "media/activitybar-screenshot.png",
+              "altText": "The Kutespaces Inspector tab in the side bar."
+            },
+            "completionEvents": [
+              "onView:kutespacesResources"
+            ]
+          },
+          {
+            "id": "readme",
+            "title": "📝 Read The Friendly Manual",
+            "description": "The README contains your mission briefing. Read it carefully before commencing on your first assignment.\n\n[Open README](command:kutespaces.openREADME)",
+            "media": {
+              "image": "media/readme-screenshot.png",
+              "altText": "The README can be opened from the Inspector."
+            }
+          },
+          {
+            "id": "mission1",
+            "title": "🥷 Mission 1: First Steps with CDK8s",
+            "description": "Create your first manifests with the CDK8s.",
+            "media": {
+              "image": "media/readme-screenshot.png",
+              "altText": "The README can be opened from the Inspector."
+            },
+            "completionEvents": [
+              "onSettingChanged:mission1Completed"
+            ]
+          },
+          {
+            "id": "mission2",
+            "title": "🥷 Mission 2: Basic Deployment",
+            "description": "Compose a deployment with CDK8s+ Kubernetes constructs.",
+            "media": {
+              "image": "media/readme-screenshot.png",
+              "altText": "The README can be opened from the Inspector."
+            },
+            "completionEvents": [
+              "onSettingChanged:mission2Completed"
+            ]
+          },
+          {
+            "id": "mission3",
+            "title": "🥷 Mission 3: Your Own Abstractions",
+            "description": "Create your own abstractions to unleash the full power.",
+            "media": {
+              "image": "media/readme-screenshot.png",
+              "altText": "The README can be opened from the Inspector."
+            },
+            "completionEvents": [
+              "onSettingChanged:mission3Completed"
+            ]
+          },
+          {
+            "id": "debrief",
+            "title": "💪 Debrief",
+            "description": "You did it! This document summarizes what you have learned and where you can go from here.",
+            "media": {
+              "image": "media/readme-screenshot.png",
+              "altText": "The README can be opened from the Inspector."
+            }
+          },
+          {
+            "id": "feedback",
+            "title": "🤗 Feedback",
+            "description": "We need to know how your experience with this space was – this is what our 5-minute survey is for.",
+            "media": {
+              "image": "media/readme-screenshot.png",
+              "altText": "The README can be opened from the Inspector."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^16.18.11",
+    "@types/vscode": "^1.72.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.24.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@kubernetes/client-node": "^0.18.0",
+    "@reduxjs/toolkit": "^1.9.1",
+    "node-watch": "^0.7.3",
+    "winston": "^3.8.2",
+    "yaml": "^2.2.0"
+  }
+}

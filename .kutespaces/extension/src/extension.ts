@@ -1,0 +1,68 @@
+// The module 'vscode' contains the VS Code extensibility API
+// Import the module and reference it with the alias vscode in your code below
+import * as vscode from 'vscode';
+import { ResourcesTreeViewProvider } from './treeViewProviders/resources';
+import { MissionsListTreeViewProvider } from './treeViewProviders/missions-list';
+import { MissionTasksTreeViewProvider } from './treeViewProviders/mission-tasks';
+import { store } from './model/store';
+import { abortMission, completeMission, startNextMission } from './model/mission-slice';
+import { mount as mission1Mount } from './content/mission1';
+import { mount as mission2Mount } from './content/mission2';
+import { showInformationMessage, showMarkdownPreview, workspacePath } from './util';
+import { getSpaceID } from './api/defaults';
+import { logger } from './log';
+
+// This method is called when your extension is activated
+// Your extension is activated the very first time the command is executed
+export function activate(context: vscode.ExtensionContext) {
+	logger.info('Kutespaces extension started', { eventName: 'extension:activate' });
+	const spaceID = getSpaceID();
+	mission1Mount(store);
+	mission2Mount(store);
+	vscode.window.registerTreeDataProvider('kutespacesResources', new ResourcesTreeViewProvider());
+	vscode.window.registerTreeDataProvider('kutespacesMissionsList', new MissionsListTreeViewProvider(store));
+	vscode.window.registerTreeDataProvider('kutespacesMissionTasks', new MissionTasksTreeViewProvider(store));
+
+	context.subscriptions.push(vscode.commands.registerCommand('kutespaces.revealInspector', () => {
+		vscode.commands.executeCommand("kutespacesResources.focus");
+	}));
+
+	context.subscriptions.push(vscode.commands.registerCommand('kutespaces.startNextMission', () => {
+		store.dispatch(startNextMission());
+	}));
+
+	context.subscriptions.push(vscode.commands.registerCommand('kutespaces.abortMission', () => {
+		store.dispatch(abortMission());
+	}));
+
+	context.subscriptions.push(vscode.commands.registerCommand('kutespaces.completeMission', () => {
+		store.dispatch(completeMission());
+	}));
+
+	// Open README by default
+	const openREADME = () => {
+		logger.debug('README opened by command', { eventName: 'extension:open_readme' })
+		showMarkdownPreview(workspacePath('README.md'));
+	};
+	let openREADMECommand = vscode.commands.registerCommand('kutespaces.openREADME', openREADME);
+	context.subscriptions.push(openREADMECommand);
+	openREADME();
+
+	const openTutorial = () => {
+		logger.debug('Tutorial opened by command', { eventName: 'extension:open_tutorial' })
+		vscode.commands.executeCommand('workbench.action.openWalkthrough', 'Shark.kutespaces#tutorial', false)
+	};
+	openTutorial();
+
+	showInformationMessage('Welcome, friend! Head over to the tutorial for getting started with this space.', 'Show Tutorial')
+		.then(choice => {
+			if(typeof choice !== 'undefined') {
+				openTutorial();
+			}
+		});
+
+	logger.debug('Kutespaces extension activate end');
+}
+
+// This method is called when your extension is deactivated
+export function deactivate() {}

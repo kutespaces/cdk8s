@@ -1,0 +1,10 @@
+components:
+- label: Podinfo via Ingress
+  url: http://podinfo-127-0-0-1.nip.io:8080
+docs:
+- label: cdk8s Documentation
+  url: https://cdk8s.io/docs/latest/
+- label: cdk8s Examples
+  url: https://cdk8s.io/docs/latest/examples/
+- label: 'GitHub: cdk8s-team/cdk8s'
+  url: https://github.com/cdk8s-team/cdk8s
