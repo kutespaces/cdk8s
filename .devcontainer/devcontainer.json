@@ -37,6 +37,7 @@
 		"mutantdino.resourcemonitor",
 		"dbaeumer.vscode-eslint",
 		"redhat.vscode-yaml",
+		"davidbwaters.macos-modern-theme",
 		"/.kutespaces/extension.vsix"
 	],
 	"waitFor": "postCreateCommand",
