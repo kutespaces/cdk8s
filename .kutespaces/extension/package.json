@@ -14,7 +14,7 @@
     "workspace"
   ],
   "activationEvents": [
-    "workspaceContains:/.kutespaces",
+    "workspaceContains:/.kutespaces/meta.yaml",
     "onView:guideComponents",
     "onCommand:kutespaces.revealInspector",
     "onCommand:kutespaces.openREADME",
