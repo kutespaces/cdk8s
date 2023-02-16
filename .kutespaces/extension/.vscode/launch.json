@@ -12,6 +12,11 @@
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}"
 			],
+			"env": {
+				"KUTESPACES_SPACE_ID": "a2ef530c-9353-4778-b9fc-1060194dd678",
+				"KUTESPACES_LOG_FILE": "/Users/felix/tmp/kutespaces-local.log",
+				"HOSTNAME": "local"
+			},
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
 			],

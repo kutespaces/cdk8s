@@ -22,7 +22,7 @@ class APITransport extends Transport {
     const meta: any = {};
     for(const key of Object.keys(info.metadata)) {
       if(key !== 'spaceID') {
-        meta[key] = info[key];
+        meta[key] = info.metadata[key];
       }
     }
     if(Object.keys(meta).length === 0) {
