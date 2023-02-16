@@ -2,6 +2,8 @@ components:
 - label: Podinfo via Ingress
   url: http://podinfo-127-0-0-1.nip.io:8080
 docs:
+- label: Feedback Form
+  url: https://docs.google.com/forms/d/e/1FAIpQLSd_F7UXGDz5UMn4fZMnuKQtl6TPuz0ZGeOy8cF94cA_1YRxKw/viewform
 - label: cdk8s Documentation
   url: https://cdk8s.io/docs/latest/
 - label: cdk8s Examples
