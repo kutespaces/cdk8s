@@ -129,7 +129,7 @@
           {
             "id": "mission1",
             "title": "🥷 Mission 1: First Steps with CDK8s",
-            "description": "Create your first manifests with the CDK8s.",
+            "description": "Create your first manifests with the CDK8s",
             "media": {
               "image": "media/readme-screenshot.png",
               "altText": "The README can be opened from the Inspector."
@@ -141,7 +141,7 @@
           {
             "id": "mission2",
             "title": "🥷 Mission 2: Basic Deployment",
-            "description": "Compose a deployment with CDK8s+ Kubernetes constructs.",
+            "description": "Compose deployments easily with CDK8s+",
             "media": {
               "image": "media/readme-screenshot.png",
               "altText": "The README can be opened from the Inspector."
@@ -149,27 +149,6 @@
             "completionEvents": [
               "onSettingChanged:mission2Completed"
             ]
-          },
-          {
-            "id": "mission3",
-            "title": "🥷 Mission 3: Your Own Abstractions",
-            "description": "Create your own abstractions to unleash the full power.",
-            "media": {
-              "image": "media/readme-screenshot.png",
-              "altText": "The README can be opened from the Inspector."
-            },
-            "completionEvents": [
-              "onSettingChanged:mission3Completed"
-            ]
-          },
-          {
-            "id": "debrief",
-            "title": "💪 Debrief",
-            "description": "You did it! This document summarizes what you have learned and where you can go from here.",
-            "media": {
-              "image": "media/readme-screenshot.png",
-              "altText": "The README can be opened from the Inspector."
-            }
           },
           {
             "id": "feedback",
