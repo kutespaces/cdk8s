@@ -17,7 +17,8 @@
 		"terminal.integrated.defaultProfile.linux": "zsh",
 		"files.trimTrailingWhitespace": true,
 		"files.trimFinalNewlines": true,
-		"files.insertFinalNewline": true
+		"files.insertFinalNewline": true,
+		"workbench.welcomePage.walkthroughs.openOnInstall": false
 	},
 	"hostRequirements": {
 		"cpus": 4
