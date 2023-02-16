@@ -14,12 +14,8 @@
     "workspace"
   ],
   "activationEvents": [
-    "workspaceContains:/.kutespaces/meta.yaml",
-    "onView:guideComponents",
-    "onCommand:kutespaces.revealInspector",
-    "onCommand:kutespaces.openREADME",
-    "onCommand:kutespaces.openTutorial",
-    "onCommand:kutespaces.startNextMission",
+    "workspaceContains:.kutespaces/meta.yaml",
+    "onView:kutespaces-inspector",
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
