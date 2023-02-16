@@ -52,6 +52,8 @@ export function activate(context: vscode.ExtensionContext) {
 		logger.debug('Tutorial opened by command', { eventName: 'extension:open_tutorial' })
 		vscode.commands.executeCommand('workbench.action.openWalkthrough', 'Shark.kutespaces#tutorial', false)
 	};
+	let openTutorialCommand = vscode.commands.registerCommand('kutespaces.openTutorial', openTutorial);
+	context.subscriptions.push(openTutorialCommand);
 	openTutorial();
 
 	showInformationMessage('Welcome, friend! Head over to the tutorial for getting started with this space.', 'Show Tutorial')
