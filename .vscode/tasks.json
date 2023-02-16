@@ -11,7 +11,7 @@
 			"path": "Mission 1",
 			"isBackground": true,
 			"presentation": {
-				"reveal": "always",
+				"reveal": "silent",
 				"revealProblems": "onProblem"
 			},
 			"group": {
@@ -26,7 +26,7 @@
 			"path": "Mission 2",
 			"isBackground": true,
 			"presentation": {
-				"reveal": "always",
+				"reveal": "silent",
 				"revealProblems": "onProblem"
 			},
 			"group": {
