@@ -1,5 +1,5 @@
 import path = require('path');
-import fs = require('fs')
+import fs = require('fs');
 import * as vscode from 'vscode';
 import { logger } from './log';
 
@@ -13,7 +13,7 @@ export function workspacePath(...segments: string[]): vscode.Uri {
   }
   let workspaceUri: vscode.Uri | undefined;
   for (const folder of vscode.workspace.workspaceFolders) {
-    if(typeof workspacePathOrUndefined('.kutespaces', 'meta.yaml') !== 'undefined') {
+    if(fs.existsSync(vscode.Uri.joinPath(folder.uri, '.kutespaces', 'meta.yaml').path)) {
       workspaceUri = folder.uri;
     }
   };

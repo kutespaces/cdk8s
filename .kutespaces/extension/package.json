@@ -14,7 +14,7 @@
     "workspace"
   ],
   "activationEvents": [
-    "workspaceContains:.kutespaces/meta.yaml",
+    "workspaceContains:/.kutespaces/meta.yaml",
     "onView:kutespaces-inspector",
     "onStartupFinished"
   ],
