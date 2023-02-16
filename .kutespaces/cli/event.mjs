@@ -14,4 +14,4 @@ const {
 });
 
 const spaceID = fs.readFileSync('/.kutespaces/state/space_id', 'utf-8');
-await sendLog(spaceID, process.env.HOSTNAME, 'info', 'Event', { eventName: name })
+await sendLog(spaceID, process.env.HOSTNAME, 'info', `${name} Event`, { eventName: name })
