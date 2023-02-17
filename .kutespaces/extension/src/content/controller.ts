@@ -10,7 +10,6 @@ export type TaskHandler = { [key: string]: {
 }; }
 
 export default function(store: Store, mission: Mission, taskHandlers: TaskHandler) {
-  let savedCurrentMission: number | undefined = store.getState().mission.currentMission;
   let savedNextTaskID: string | undefined = undefined;
   store.subscribe(() => {
     const state = store.getState().mission;
@@ -32,8 +31,8 @@ export default function(store: Store, mission: Mission, taskHandlers: TaskHandle
       }
     }
 
-    if(typeof currentMission !== 'undefined' &&
-       typeof state.missions[currentMission].tasks.find(t => !t.completed) === 'undefined') {
+    if(currentMission === mission.id &&
+       typeof state.missions[mission.id].tasks.find(t => !t.completed) === 'undefined') {
       showInformationMessage(
         `You just finished all the tasks in the '${mission.description}' mission, congratulations! 🎉`,
         'Complete Mission'
@@ -44,7 +43,6 @@ export default function(store: Store, mission: Mission, taskHandlers: TaskHandle
       });
     }
 
-    savedCurrentMission = currentMission;
     savedNextTaskID = nextTaskID;
-  })
+  });
 }
