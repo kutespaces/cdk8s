@@ -28,6 +28,20 @@ export function workspacePathOrUndefined(...segments: string[]): vscode.Uri | un
   return fs.existsSync(pth.fsPath) ? pth : undefined;
 }
 
+export function createFileAndFolderIfNotExists(uri: vscode.Uri): Promise<vscode.Uri> {
+  return new Promise((resolve, reject) => {
+    try {
+      const folder = path.dirname(uri.fsPath);
+      fs.mkdirSync(folder, { recursive: true });
+      const fh = fs.openSync(uri.fsPath, 'a');
+      fs.closeSync(fh);
+    } catch(err) {
+      reject(err);
+    }
+    resolve(uri);
+  });
+}
+
 export function showMarkdownPreview(uri: vscode.Uri): void {
   vscode.commands.executeCommand('vscode.openWith', uri, 'vscode.markdown.preview.editor')
 }

@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 import { logger } from '../log';
 import { completeTask } from '../model/mission-slice';
 import { Store } from '../model/store';
-import { closeAllTabs, handleError, showMarkdownPreview, workspacePath } from '../util';
+import { closeAllTabs, createFileAndFolderIfNotExists, handleError, showMarkdownPreview, workspacePath } from '../util';
 import controller from "./controller";
 
 export const metadata = {
@@ -39,7 +39,10 @@ const taskHandlers = {
           doc => vscode.window.showTextDocument(doc),
         )
         .then(
-          () => vscode.workspace.openTextDocument(outUri)
+          () => createFileAndFolderIfNotExists(outUri),
+        )
+        .then(
+          () => vscode.workspace.openTextDocument(outUri),
         )
         .then(
           doc => {

@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { kubeconfig, appsV1Api, networkingV1Api } from '../k8sAPI';
 import { completeTask } from '../model/mission-slice';
 import { Store } from '../model/store';
-import { closeAllTabs, execShellCommand, handleError, showMarkdownPreview, workspacePath } from '../util';
+import { closeAllTabs, createFileAndFolderIfNotExists, execShellCommand, handleError, showMarkdownPreview, workspacePath } from '../util';
 import controller from "./controller";
 import { Watch, ListWatch } from '@kubernetes/client-node';
 import { logger } from '../log';
@@ -44,6 +44,9 @@ const taskHandlers = {
         .then(
           () => vscode.window.createTerminal(undefined, 'k9s', ['-n', NS, '-c', 'pod']),
           err => handleError(err, 'Creating namespace')
+        )
+        .then(
+          () => createFileAndFolderIfNotExists(outUri),
         )
         .then(
           () => vscode.workspace.openTextDocument(outUri)
