@@ -20,8 +20,6 @@ export const sendLog = function(spaceID: string, hostname: string, level: string
       headers: {
         ...headerDefaults,
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        'Content-Length': data.length,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         'Content-Type': 'application/json',
       },
     }, (resp) => {
@@ -36,5 +34,6 @@ export const sendLog = function(spaceID: string, hostname: string, level: string
     req.on('error', reject);
 
     req.write(data);
+    req.end();
   });
 };

@@ -20,8 +20,6 @@ export const sendLog = function(spaceID, hostname, level, message, jsonMessage) 
       headers: {
         ...headerDefaults,
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        'Content-Length': data.length,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         'Content-Type': 'application/json',
       },
     }, (resp) => {
