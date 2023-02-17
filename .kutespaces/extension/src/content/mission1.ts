@@ -108,6 +108,7 @@ const taskHandlers = {
             clearInterval(interval);
             store.dispatch(completeTask({ missionID: 1, taskID: 'createPod' }));
             logger.info('createPod task completed', { eventName: 'task:complete', missionID: 1, taskID: 'createPod' });
+            vscode.commands.executeCommand('kutespaces.completeMission1');
           }
         }
       };

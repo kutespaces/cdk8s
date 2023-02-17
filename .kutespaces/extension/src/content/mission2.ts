@@ -111,6 +111,7 @@ const taskHandlers = {
           if (typeof names.find(n => n?.startsWith('podinfo-')) !== 'undefined') {
             store.dispatch(completeTask({ missionID: metadata.id, taskID: 'exposePodinfo' }));
             logger.info('exposePodinfo task completed', { eventName: 'task:complete', missionID: 2, taskID: 'exposePodinfo' });
+            vscode.commands.executeCommand('kutespaces.completeMission2');
             return;
           }
         } else {

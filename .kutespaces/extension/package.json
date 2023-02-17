@@ -23,23 +23,23 @@
     "commands": [
       {
         "command": "kutespaces.revealInspector",
-        "title": "Reveal Kutespaces Inspector"
+        "title": "Kutespaces: Reveal Inspector"
       },
       {
         "command": "kutespaces.openREADME",
-        "title": "Open README"
+        "title": "Kutespaces: Open README"
       },
       {
         "command": "kutespaces.openTutorial",
-        "title": "Open Tutorial"
+        "title": "Kutespaces: Open Tutorial"
       },
       {
         "command": "kutespaces.startNextMission",
-        "title": "Start Next Mission"
+        "title": "Kutespaces: Start Next Mission"
       },
       {
         "command": "kutespaces.abortMission",
-        "title": "Abort Mission",
+        "title": "Kutespaces: Abort Mission",
         "icon": {
           "light": "media/stop-light.svg",
           "dark": "media/stop-dark.svg"
@@ -47,11 +47,19 @@
       },
       {
         "command": "kutespaces.completeMission",
-        "title": "Complete Mission",
+        "title": "Kutespaces: Complete Mission",
         "icon": {
           "light": "media/check-bold-light.svg",
           "dark": "media/check-bold-dark.svg"
         }
+      },
+      {
+        "command": "kutespaces.completeMission1",
+        "title": "Kutespaces: Complete Mission 1 (hidden)"
+      },
+      {
+        "command": "kutespaces.completeMission2",
+        "title": "Kutespaces: Complete Mission 2 (hidden)"
       }
     ],
     "viewsContainers": {
@@ -77,6 +85,13 @@
           "id": "kutespacesMissionTasks",
           "name": "Tasks"
         }
+      ],
+      "explorer": [
+        {
+          "id": "kutespacesIntro",
+          "name": "Kutespaces",
+          "visibility": "visible"
+        }
       ]
     },
     "menus": {
@@ -91,12 +106,26 @@
           "when": "view == kutespacesMissionTasks",
           "group": "navigation"
         }
+      ],
+      "commandPalette": [
+        {
+          "command": "kutespaces.completeMission1",
+          "when": "false"
+        },
+        {
+          "command": "kutespaces.completeMission2",
+          "when": "false"
+        }
       ]
     },
     "viewsWelcome": [
       {
         "view": "kutespacesMissionTasks",
-        "contents": "There is currently no active mission.\n[Start Next Mission](command:kutespaces.startNextMission)"
+        "contents": "[Start Next Mission](command:kutespaces.startNextMission)"
+      },
+      {
+        "view": "kutespacesIntro",
+        "contents": "You are ready to explore cdk8s.\n[Open 🧪 Kutespaces Inspector](command:kutespacesResources.focus)"
       }
     ],
     "walkthroughs": [
@@ -110,7 +139,7 @@
             "title": "🧪 Open Kutespaces Inspector",
             "description": "The inspector shows you all the resources you need and your mission progress. Find it at the 🧪 Tube Icon in the side bar.\n\n[Reveal Kutespaces Inspector](command:kutespaces.revealInspector)",
             "media": {
-              "image": "media/activitybar-screenshot.png",
+              "image": "media/screenshot-inspector.png",
               "altText": "The Kutespaces Inspector tab in the side bar."
             },
             "completionEvents": [
@@ -122,7 +151,7 @@
             "title": "📝 Read The Friendly Manual",
             "description": "The README contains your mission briefing. Read it carefully before commencing on your first assignment.\n\n[Open README](command:kutespaces.openREADME)",
             "media": {
-              "image": "media/readme-screenshot.png",
+              "image": "media/screenshot-readme.png",
               "altText": "The README can be opened from the Inspector."
             }
           },
@@ -131,11 +160,11 @@
             "title": "🥷 Mission 1: First Steps with CDK8s",
             "description": "Create your first manifests with the CDK8s",
             "media": {
-              "image": "media/readme-screenshot.png",
+              "image": "media/screenshot-mission1.png",
               "altText": "The README can be opened from the Inspector."
             },
             "completionEvents": [
-              "onSettingChanged:mission1Completed"
+              "onCommand:kutespaces.completeMission1"
             ]
           },
           {
@@ -143,19 +172,19 @@
             "title": "🥷 Mission 2: Basic Deployment",
             "description": "Compose deployments easily with CDK8s+",
             "media": {
-              "image": "media/readme-screenshot.png",
+              "image": "media/screenshot-mission2.png",
               "altText": "The README can be opened from the Inspector."
             },
             "completionEvents": [
-              "onSettingChanged:mission2Completed"
+              "onCommand:kutespaces.completeMission2"
             ]
           },
           {
             "id": "feedback",
             "title": "🤗 Feedback",
-            "description": "We need to know how your experience with this space was – this is what our 5-minute survey is for.",
+            "description": "We're eager to know about your experience and how we might improve it for you in the future. It takes less than three minutes. 🥹\n\n[Open Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSd_F7UXGDz5UMn4fZMnuKQtl6TPuz0ZGeOy8cF94cA_1YRxKw)",
             "media": {
-              "image": "media/readme-screenshot.png",
+              "image": "media/screenshot-feedback.png",
               "altText": "The README can be opened from the Inspector."
             }
           }
