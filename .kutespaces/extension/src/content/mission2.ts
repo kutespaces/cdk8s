@@ -5,7 +5,6 @@ import { Store } from '../model/store';
 import { execShellCommand, handleError, showMarkdownPreview, workspacePath } from '../util';
 import controller from "./controller";
 import { Watch, ListWatch } from '@kubernetes/client-node';
-import { getSpaceID } from '../api/defaults';
 import { logger } from '../log';
 
 export const metadata = {
@@ -66,14 +65,18 @@ const taskHandlers = {
       const cache = new ListWatch(path, watch, listFn);
 
       const looper = () => {
+        logger.debug('Checking deployments');
         const list = cache.list(NS);
         if (list) {
           const names = list.map(i => i.metadata?.name);
+          logger.debug(`Found ${names.length} deployments: ${JSON.stringify(names)}`);
           if (typeof names.find(n => n?.startsWith('podinfo-deployment-')) !== 'undefined') {
             store.dispatch(completeTask({ missionID: metadata.id, taskID: 'createDeployment' }));
             logger.info('createDeployment task completed', { eventName: 'task:complete', missionID: 2, taskID: 'createDeployment' });
             return;
           }
+        } else {
+          logger.debug('Didn\'t receive deployments');
         }
         setTimeout(looper, 2000);
       };
@@ -96,14 +99,18 @@ const taskHandlers = {
       const cache = new ListWatch(path, watch, listFn);
 
       const looper = () => {
+        logger.debug('Checking ingresses');
         const list = cache.list(NS);
         if (list) {
           const names = list.map(i => i.metadata?.name);
+          logger.debug(`Found ${names.length} ingresses: ${JSON.stringify(names)}`);
           if (typeof names.find(n => n?.startsWith('podinfo-')) !== 'undefined') {
             store.dispatch(completeTask({ missionID: metadata.id, taskID: 'exposePodinfo' }));
             logger.info('exposePodinfo task completed', { eventName: 'task:complete', missionID: 2, taskID: 'exposePodinfo' });
             return;
           }
+        } else {
+          logger.debug('Didn\'t receive ingresses');
         }
         setTimeout(looper, 2000);
       };

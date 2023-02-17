@@ -2,7 +2,6 @@ import { readFileSync } from 'fs';
 const YAML = require('yaml');
 import watch from 'node-watch';
 import * as vscode from 'vscode';
-import { getSpaceID } from '../api/defaults';
 import { logger } from '../log';
 import { completeTask } from '../model/mission-slice';
 import { Store } from '../model/store';
@@ -50,6 +49,7 @@ const taskHandlers = {
         );
 
         const checkOutput = () => {
+          logger.debug('Checking hello.k8s.yaml');
           const docs = YAML.parseAllDocuments(readFileSync(outUri.fsPath, 'utf-8'));
           for(const doc of docs) {
             let foundNs = undefined;
@@ -57,18 +57,26 @@ const taskHandlers = {
             try {
               foundNs = doc.contents.items.find((i: {key: string, value: any}) => i.key.toString() === 'kind' && i.value.toString() === 'Namespace');
               foundName = doc.contents.items.find((i: {key: string, value: any}) => i.key.toString() === 'metadata' && i.value.items[0].value.toString() === 'hello-world');
+              logger.debug(`foundNs: ${foundNs}, foundName: ${foundName}`);
             } catch(e) {
-              console.error(`Error checking output file: ${e}`);
+              logger.error(e);
             }
             if(foundNs && foundName) {
               watcher.close();
+              clearInterval(interval);
               store.dispatch(completeTask({ missionID: 1, taskID: 'createNamespace' }));
               logger.info('createNamespace task completed', { eventName: 'task:complete', missionID: 1, taskID: 'createNamespace' });
             }
           }
         };
-        const watcher = watch(outUri.fsPath, {}, checkOutput);
-        checkOutput();
+        const watcher = watch(outUri.fsPath, {}, () => {
+          logger.debug('File watcher for hello.k8s.yaml has triggered');
+          checkOutput();
+        });
+        const interval = setInterval(() => {
+          logger.debug('Interval for hello.k8s.yaml has triggered');
+          checkOutput();
+        }, 5000);
 
       vscode.commands.executeCommand('workbench.action.tasks.runTask', 'Build Mission 1');
     },
@@ -79,6 +87,7 @@ const taskHandlers = {
       logger.info('createPod task started', { eventName: 'task:start', missionID: 1, taskID: 'createPod' });
       const outUri = workspacePath('Mission 1', 'dist', 'hello.k8s.yaml');
       const checkOutput = () => {
+        logger.debug('Checking hello.k8s.yaml');
         const docs = YAML.parseAllDocuments(readFileSync(outUri.fsPath, 'utf-8'));
         for(const doc of docs) {
           let foundDeploy = undefined;
@@ -86,18 +95,26 @@ const taskHandlers = {
           try {
             foundDeploy = doc.contents.items.find((i: {key: string, value: any}) => i.key.toString() === 'kind' && i.value.toString() === 'Pod');
             foundName = doc.contents.items.find((i: {key: string, value: any}) => i.key.toString() === 'metadata' && i.value.items.find((i: any) => i.toString() === '{"name":"app-worker"}'));
+            logger.debug(`foundDeploy: ${foundDeploy}, foundName: ${foundName}`);
           } catch(e) {
-            console.error(`Error checking output file: ${e}`);
+            logger.error(e);
           }
           if(foundDeploy && foundName) {
             watcher.close();
+            clearInterval(interval);
             store.dispatch(completeTask({ missionID: 1, taskID: 'createPod' }));
             logger.info('createPod task completed', { eventName: 'task:complete', missionID: 1, taskID: 'createPod' });
           }
         }
       };
-      const watcher = watch(outUri.fsPath, {}, checkOutput);
-      checkOutput();
+      const watcher = watch(outUri.fsPath, {}, () => {
+        logger.debug('File watcher for hello.k8s.yaml has triggered');
+        checkOutput();
+      });
+      const interval = setInterval(() => {
+        logger.debug('Interval for hello.k8s.yaml has triggered');
+        checkOutput();
+      }, 5000);
     },
     tearDown: () => {
       vscode.commands.executeCommand('workbench.action.tasks.terminate', 'Build Mission 1');
