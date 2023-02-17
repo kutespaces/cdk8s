@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { kubeconfig, appsV1Api, networkingV1Api } from '../k8sAPI';
 import { completeTask } from '../model/mission-slice';
 import { Store } from '../model/store';
-import { execShellCommand, handleError, showMarkdownPreview, workspacePath } from '../util';
+import { closeAllTabs, execShellCommand, handleError, showMarkdownPreview, workspacePath } from '../util';
 import controller from "./controller";
 import { Watch, ListWatch } from '@kubernetes/client-node';
 import { logger } from '../log';
@@ -35,6 +35,7 @@ const taskHandlers = {
       logger.info('createDeployment task started', { eventName: 'task:start', missionID: 2, taskID: 'createDeployment' });
       const mainTsUri = vscode.Uri.joinPath(metadata.basePath, 'main.ts');
       const outUri = vscode.Uri.joinPath(metadata.basePath, 'dist', 'podinfo.k8s.yaml');
+      closeAllTabs();
       vscode.workspace.openTextDocument(mainTsUri)
         .then(
           doc => vscode.window.showTextDocument(doc),
@@ -117,7 +118,10 @@ const taskHandlers = {
 
       looper();
     },
-    tearDown: () => { },
+    tearDown: () => {
+      closeAllTabs();
+      vscode.commands.executeCommand('workbench.action.tasks.terminate', 'Build Mission 2');
+    },
   }
 };
 

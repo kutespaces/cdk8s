@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 import { logger } from '../log';
 import { completeTask } from '../model/mission-slice';
 import { Store } from '../model/store';
-import { handleError, showMarkdownPreview, workspacePath } from '../util';
+import { closeAllTabs, handleError, showMarkdownPreview, workspacePath } from '../util';
 import controller from "./controller";
 
 export const metadata = {
@@ -33,6 +33,7 @@ const taskHandlers = {
       logger.info('createNamespace task started', { eventName: 'task:start', missionID: 1, taskID: 'createNamespace' });
       const mainTsUri = workspacePath('Mission 1', 'main.ts');
       const outUri = workspacePath('Mission 1', 'dist', 'hello.k8s.yaml');
+      closeAllTabs();
       vscode.workspace.openTextDocument(mainTsUri)
         .then(
           doc => vscode.window.showTextDocument(doc),
@@ -118,6 +119,7 @@ const taskHandlers = {
     },
     tearDown: () => {
       vscode.commands.executeCommand('workbench.action.tasks.terminate', 'Build Mission 1');
+      closeAllTabs();
     }
   }
 };

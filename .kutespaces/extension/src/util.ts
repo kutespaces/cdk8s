@@ -58,3 +58,10 @@ export function handleError(error: any, context?: string) {
     vscode.window.showErrorMessage(`An error occurred: ${error}`);
   }
 }
+
+export function closeAllTabs() {
+  const tabs = vscode.window.tabGroups.all.map(tg => tg.tabs).flat();
+  for(const tab of tabs) {
+    vscode.window.tabGroups.close(tab);
+  }
+}
