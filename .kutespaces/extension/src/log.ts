@@ -35,6 +35,20 @@ class APITransport extends Transport {
   }
 };
 
+const transports: Transport[] = [
+  new winston.transports.File({
+    filename: process.env.KUTESPACES_LOG_FILE || '/.kutespaces/state/extension.log', level: 'debug'
+  }),
+  new winston.transports.Console({
+    format: winston.format.simple(),
+  })
+];
+
+const spaceID = getSpaceID();
+if(spaceID) {
+  transports.push(new APITransport({}));
+}
+
 export const logger = winston.createLogger({
   level: 'debug',
   format: format.combine(
@@ -42,14 +56,6 @@ export const logger = winston.createLogger({
     format.metadata(),
     format.json(),
   ),
-  defaultMeta: { spaceID: getSpaceID() },
-  transports: [
-    new winston.transports.File({
-      filename: process.env.KUTESPACES_LOG_FILE || '/.kutespaces/state/extension.log', level: 'debug'
-    }),
-    new winston.transports.Console({
-      format: winston.format.simple(),
-    }),
-    new APITransport({}),
-  ],
+  defaultMeta: { spaceID },
+  transports,
 });

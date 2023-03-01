@@ -11,9 +11,13 @@ export const requestDefaults = {
   headers: headerDefaults,
 };
 
-export const getSpaceID = function(): string {
+export const getSpaceID = function(): string | undefined {
   if(process.env.KUTESPACES_SPACE_ID) {
     return process.env.KUTESPACES_SPACE_ID;
+  }
+  const idPath = '/.kutespaces/state/space_id';
+  if(!fs.existsSync(idPath)) {
+    return undefined;
   }
   return fs.readFileSync('/.kutespaces/state/space_id', 'utf-8');
 };
