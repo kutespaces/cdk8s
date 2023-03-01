@@ -4,6 +4,11 @@
   "displayName": "Kutespaces",
   "description": "Try Cloud Native tools seamlessly with Kutespaces in the cloud",
   "version": "0.0.1",
+  "icon": "media/kutespaces-icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kutespaces/cdk8s.git"
+  },
   "engines": {
     "vscode": "^1.72.0"
   },
@@ -67,7 +72,7 @@
         {
           "id": "kutespaces-inspector",
           "title": "Kutespaces Inspector",
-          "icon": "media/test-tube.svg"
+          "icon": "media/kutespaces-icon-bw.png"
         }
       ]
     },
@@ -125,7 +130,7 @@
       },
       {
         "view": "kutespacesIntro",
-        "contents": "You are ready to explore cdk8s.\n[Open 🧪 Kutespaces Inspector](command:kutespacesResources.focus)"
+        "contents": "You are ready to explore cdk8s.\n[Open Kutespaces Inspector](command:kutespacesResources.focus)"
       }
     ],
     "walkthroughs": [
@@ -136,8 +141,8 @@
         "steps": [
           {
             "id": "inspector",
-            "title": "🧪 Open Kutespaces Inspector",
-            "description": "The inspector shows you all the resources you need and your mission progress. Find it at the 🧪 Tube Icon in the side bar.\n\n[Reveal Kutespaces Inspector](command:kutespaces.revealInspector)",
+            "title": "Open Kutespaces Inspector",
+            "description": "The inspector shows you all the resources you need and your mission progress. Look for the Kutespaces Icon in the side bar.\n\n[Reveal Kutespaces Inspector](command:kutespaces.revealInspector)",
             "media": {
               "image": "media/screenshot-inspector.png",
               "altText": "The Kutespaces Inspector tab in the side bar."
@@ -158,7 +163,7 @@
           {
             "id": "mission1",
             "title": "🥷 Mission 1: First Steps with CDK8s",
-            "description": "Create your first manifests with the CDK8s",
+            "description": "Create your first manifests with the CDK8s\n\n[Start Mission](command:kutespaces.startNextMission)",
             "media": {
               "image": "media/screenshot-mission1.png",
               "altText": "The README can be opened from the Inspector."
@@ -170,7 +175,7 @@
           {
             "id": "mission2",
             "title": "🥷 Mission 2: Basic Deployment",
-            "description": "Compose deployments easily with CDK8s+",
+            "description": "Compose deployments easily with CDK8s+\n\n[Start Mission](command:kutespaces.startNextMission)",
             "media": {
               "image": "media/screenshot-mission2.png",
               "altText": "The README can be opened from the Inspector."

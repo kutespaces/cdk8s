@@ -6,19 +6,16 @@ import { MissionsListTreeViewProvider } from './treeViewProviders/missions-list'
 import { MissionTasksTreeViewProvider } from './treeViewProviders/mission-tasks';
 import { store } from './model/store';
 import { abortMission, completeMission, startNextMission } from './model/mission-slice';
-import { mount as mission1Mount } from './content/mission1';
-import { mount as mission2Mount } from './content/mission2';
 import { showInformationMessage, showMarkdownPreview, workspacePath } from './util';
-import { getSpaceID } from './api/defaults';
 import { logger } from './log';
+import { mountMissions } from './content';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	logger.info('Kutespaces extension started', { eventName: 'extension:activate' });
-	const spaceID = getSpaceID();
-	mission1Mount(store);
-	mission2Mount(store);
+	mountMissions(store);
+
 	vscode.window.registerTreeDataProvider('kutespacesResources', new ResourcesTreeViewProvider());
 	vscode.window.registerTreeDataProvider('kutespacesMissionsList', new MissionsListTreeViewProvider(store));
 	vscode.window.registerTreeDataProvider('kutespacesMissionTasks', new MissionTasksTreeViewProvider(store));

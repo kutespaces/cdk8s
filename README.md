@@ -40,7 +40,7 @@ cdk8s apps only *define* Kubernetes applications, they do not apply the resource
 
 * The **Kutespace inspector** will guide you through.
 
-  Click on the **🧪 Test Tube** icon in the side bar to open it.
+  Click on the **Kutespaces Icon** in the side bar to open it.
 
   ![Kutespace inspector side bar icon](doc/kutespace-inspector-icon.png)
 

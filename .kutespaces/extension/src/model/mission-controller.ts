@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { Mission } from "../model/mission";
-import { completeMission } from "../model/mission-slice";
-import { Store } from "../model/store";
+import { Mission } from "./mission";
+import { completeMission } from "./mission-slice";
+import { Store } from "./store";
 import { showInformationMessage } from '../util';
 
 export type TaskHandler = { [key: string]: {

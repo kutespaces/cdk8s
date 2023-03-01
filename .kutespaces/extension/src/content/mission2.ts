@@ -3,7 +3,7 @@ import { kubeconfig, appsV1Api, networkingV1Api } from '../k8sAPI';
 import { completeTask } from '../model/mission-slice';
 import { Store } from '../model/store';
 import { closeAllTabs, createFileAndFolderIfNotExists, execShellCommand, handleError, showMarkdownPreview, workspacePath } from '../util';
-import controller from "./controller";
+import controller from "../model/mission-controller";
 import { Watch, ListWatch } from '@kubernetes/client-node';
 import { logger } from '../log';
 
