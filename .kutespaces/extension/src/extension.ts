@@ -46,7 +46,6 @@ export function activate(context: vscode.ExtensionContext) {
 	};
 	let openREADMECommand = vscode.commands.registerCommand('kutespaces.openREADME', openREADME);
 	context.subscriptions.push(openREADMECommand);
-	openREADME();
 
 	const openTutorial = () => {
 		logger.debug('Tutorial opened by command', { eventName: 'extension:open_tutorial' })
@@ -56,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(openTutorialCommand);
 	openTutorial();
 
-	showInformationMessage('Welcome, friend! Head over to the tutorial for getting started with this space.', 'Show Tutorial')
+	showInformationMessage('Head over to the tutorial for getting started with this space.', 'Show Tutorial')
 		.then(choice => {
 			if(typeof choice !== 'undefined') {
 				openTutorial();
