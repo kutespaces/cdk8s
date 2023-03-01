@@ -137,11 +137,11 @@
       {
         "id": "tutorial",
         "title": "cdk8s on Kutespaces",
-        "description": "A tutorial on using this space to master the CDK8s.",
+        "description": "All set! The steps below will help you get started with cdk8s.",
         "steps": [
           {
             "id": "inspector",
-            "title": "Open Kutespaces Inspector",
+            "title": "Kutespaces Inspector",
             "description": "The inspector shows you all the resources you need and your mission progress. Look for the Kutespaces Icon in the side bar.\n\n[Reveal Kutespaces Inspector](command:kutespaces.revealInspector)",
             "media": {
               "image": "media/screenshot-inspector.png",
@@ -153,7 +153,7 @@
           },
           {
             "id": "readme",
-            "title": "📝 Read The Friendly Manual",
+            "title": "README",
             "description": "The README contains your mission briefing. Read it carefully before commencing on your first assignment.\n\n[Open README](command:kutespaces.openREADME)",
             "media": {
               "image": "media/screenshot-readme.png",
@@ -162,7 +162,7 @@
           },
           {
             "id": "mission1",
-            "title": "🥷 Mission 1: First Steps with CDK8s",
+            "title": "Mission 1: First Steps with CDK8s",
             "description": "Create your first manifests with the CDK8s\n\n[Start Mission](command:kutespaces.startNextMission)",
             "media": {
               "image": "media/screenshot-mission1.png",
@@ -174,8 +174,8 @@
           },
           {
             "id": "mission2",
-            "title": "🥷 Mission 2: Basic Deployment",
-            "description": "Compose deployments easily with CDK8s+\n\n[Start Mission](command:kutespaces.startNextMission)",
+            "title": "Mission 2: cdk8s+",
+            "description": "Compose deployments easily with cdk8s+\n\n[Start Mission](command:kutespaces.startNextMission)",
             "media": {
               "image": "media/screenshot-mission2.png",
               "altText": "The README can be opened from the Inspector."
@@ -186,8 +186,8 @@
           },
           {
             "id": "feedback",
-            "title": "🤗 Feedback",
-            "description": "We're eager to know about your experience and how we might improve it for you in the future. It takes less than three minutes. 🥹\n\n[Open Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSd_F7UXGDz5UMn4fZMnuKQtl6TPuz0ZGeOy8cF94cA_1YRxKw)",
+            "title": "Feedback",
+            "description": "We want to know about your experience and how we might improve it for you in the future. It takes less than three minutes. 🥹\n\n[Open Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSd_F7UXGDz5UMn4fZMnuKQtl6TPuz0ZGeOy8cF94cA_1YRxKw)",
             "media": {
               "image": "media/screenshot-feedback.png",
               "altText": "The README can be opened from the Inspector."
