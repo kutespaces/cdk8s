@@ -70,7 +70,12 @@ export class ResourcesTreeViewProvider implements vscode.TreeDataProvider<vscode
         );
       }
       if(typeof meta !== 'undefined' && 'thingsToDo' in meta) {
-        const thingsFromMeta = meta.thingsToDo.map(c => new Resource(c.label, new ShowMarkdownPreviewCommand(c.label, workspacePath(...c.path))));
+        const thingsFromMeta = meta.thingsToDo.map(c => {
+          if(c.action === 'runPlayground') {
+            return new Resource(c.label, new RunPlaygroundCommand(c.label));
+          }
+          return new Resource(c.label, new ShowMarkdownPreviewCommand(c.label, workspacePath(...c.path)))
+        });
         thingsToDo = thingsToDo.concat(...thingsFromMeta);
       }
       return thingsToDo;
@@ -176,6 +181,18 @@ export class OpenURLCommand implements vscode.Command {
   }
 }
 
+export class RunPlaygroundCommand implements vscode.Command {
+  title: string;
+  command: string;
+  tooltip?: string | undefined;
+  arguments?: any[] | undefined;
+
+  constructor(title: string) {
+    this.title = title;
+    this.command = 'kutespaces.runPlayground';
+  }
+}
+
 interface MetaYAML {
   thingsToDo: WorkspaceRef[],
   docs: MetaRef[],
@@ -189,6 +206,7 @@ interface MetaRef {
 interface WorkspaceRef {
   label: string,
   path: string[],
+  action?: string,
 }
 
 function readMetaYAML(): MetaYAML | undefined {

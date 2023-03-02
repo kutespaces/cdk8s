@@ -32,6 +32,21 @@
 			"group": {
 				"kind": "build"
 			}
+		},
+		{
+			"label": "Build Playground",
+			"type": "npm",
+			"script": "watch:build",
+			"problemMatcher": "$tsc-watch",
+			"path": "Playground",
+			"isBackground": true,
+			"presentation": {
+				"reveal": "silent",
+				"revealProblems": "onProblem"
+			},
+			"group": {
+				"kind": "build"
+			}
 		}
 	]
 }

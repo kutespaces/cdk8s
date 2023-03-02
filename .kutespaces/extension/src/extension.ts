@@ -7,7 +7,7 @@ import { store } from './model/store';
 import { abortMission, completeMission, startNextMission } from './model/mission-slice';
 import { showInformationMessage, showMarkdownPreview, workspacePath } from './util';
 import { logger } from './log';
-import { mountMissions } from './content';
+import { mountMissions, runPlayground } from './content';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -49,6 +49,9 @@ export function activate(context: vscode.ExtensionContext) {
 	let openTutorialCommand = vscode.commands.registerCommand('kutespaces.openTutorial', openTutorial);
 	context.subscriptions.push(openTutorialCommand);
 	openTutorial();
+
+	let runPlaygroundCommand = vscode.commands.registerCommand('kutespaces.runPlayground', runPlayground);
+	context.subscriptions.push(runPlaygroundCommand);
 
 	showInformationMessage('Head over to the tutorial for getting started with this space.', 'Show Tutorial')
 		.then(choice => {

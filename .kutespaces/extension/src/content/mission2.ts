@@ -35,14 +35,20 @@ const taskHandlers = {
       logger.info('createDeployment task started', { eventName: 'task:start', missionID: 2, taskID: 'createDeployment' });
       const mainTsUri = vscode.Uri.joinPath(metadata.basePath, 'main.ts');
       const outUri = vscode.Uri.joinPath(metadata.basePath, 'dist', 'podinfo.k8s.yaml');
-      closeAllTabs();
-      vscode.workspace.openTextDocument(mainTsUri)
+      closeAllTabs()
+        .then(
+          () => vscode.workspace.openTextDocument(mainTsUri),
+        )
         .then(
           doc => vscode.window.showTextDocument(doc),
         )
         .then(() => execShellCommand('kubectl create namespace podinfo --dry-run=client -o yaml | kubectl apply -f -'))
         .then(
-          () => vscode.window.createTerminal(undefined, 'k9s', ['-n', NS, '-c', 'pod']),
+          () => vscode.window.createTerminal({
+            shellPath: 'k9s',
+            shellArgs: ['-n', NS, '-c', 'pod'],
+            location: vscode.TerminalLocation.Editor,
+          }),
           err => handleError(err, 'Creating namespace')
         )
         .then(

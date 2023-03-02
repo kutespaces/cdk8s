@@ -33,8 +33,10 @@ const taskHandlers = {
       logger.info('createNamespace task started', { eventName: 'task:start', missionID: 1, taskID: 'createNamespace' });
       const mainTsUri = workspacePath('Mission 1', 'main.ts');
       const outUri = workspacePath('Mission 1', 'dist', 'hello.k8s.yaml');
-      closeAllTabs();
-      vscode.workspace.openTextDocument(mainTsUri)
+      closeAllTabs()
+        .then(
+          () => vscode.workspace.openTextDocument(mainTsUri),
+        )
         .then(
           doc => vscode.window.showTextDocument(doc),
         )

@@ -75,7 +75,9 @@ export function handleError(error: any, context?: string) {
 
 export function closeAllTabs() {
   const tabs = vscode.window.tabGroups.all.map(tg => tg.tabs).flat();
+  const promises = [];
   for(const tab of tabs) {
-    vscode.window.tabGroups.close(tab);
+    promises.push(vscode.window.tabGroups.close(tab));
   }
+  return Promise.all(promises);
 }

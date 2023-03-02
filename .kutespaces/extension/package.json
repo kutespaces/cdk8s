@@ -59,6 +59,10 @@
         }
       },
       {
+        "command": "kutespaces.runPlayground",
+        "title": "Kutespaces: Run Playground"
+      },
+      {
         "command": "kutespaces.completeMission1",
         "title": "Kutespaces: Complete Mission 1 (hidden)"
       },

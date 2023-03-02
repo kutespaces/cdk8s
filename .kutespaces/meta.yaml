@@ -1,5 +1,6 @@
 thingsToDo:
 - label: 'Free Play: Build Your Own Playground'
+  action: runPlayground
   path: [Playground, README.md]
 docs:
 - label: cdk8s Documentation
