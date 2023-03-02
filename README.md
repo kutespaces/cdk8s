@@ -38,7 +38,7 @@ cdk8s apps only *define* Kubernetes applications, they do not apply the resource
 
   Make yourself familiar with the environment and click **Start Next Mission** when you're ready. 🚀
 
-* Explore cdk8s yourself at the [**Playground**](Playground/README.md).
+* Explore cdk8s yourself at the [**Playground**](Playground/README.md). It builds live and applies your resources to Kubernetes in real time!
 
 * There are **Two Missions** for you to solve:
 

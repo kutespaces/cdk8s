@@ -166,7 +166,7 @@
             "description": "Create your first manifests with the CDK8s\n\n[Start Mission](command:kutespaces.startNextMission)",
             "media": {
               "image": "media/screenshot-mission1.png",
-              "altText": "The README can be opened from the Inspector."
+              "altText": "Code from Mission 1"
             },
             "completionEvents": [
               "onCommand:kutespaces.completeMission1"
@@ -178,12 +178,25 @@
             "description": "Compose deployments easily with cdk8s+\n\n[Start Mission](command:kutespaces.startNextMission)",
             "media": {
               "image": "media/screenshot-mission2.png",
-              "altText": "The README can be opened from the Inspector."
+              "altText": "Code from Mission 2"
             },
             "completionEvents": [
               "onCommand:kutespaces.completeMission2"
             ]
           },
+          {
+            "id": "playground",
+            "title": "Playground",
+            "description": "Explore cdk8s yourself. The Playgrounds builds your cdk8s code live and creates your resources in Kubernetes!\n\n[Run Playground](command:kutespaces.runPlayground)",
+            "media": {
+              "image": "media/screenshot-playground.png",
+              "altText": "The playground includes a pre-configured Kubernetes cluster"
+            },
+            "completionEvents": [
+              "onCommand:kutespaces.runPlayground"
+            ]
+          },
+
           {
             "id": "feedback",
             "title": "Feedback",
