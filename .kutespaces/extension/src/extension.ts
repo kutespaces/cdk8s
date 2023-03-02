@@ -34,7 +34,6 @@ export function activate(context: vscode.ExtensionContext) {
 		store.dispatch(completeMission());
 	}));
 
-	// Open README by default
 	const openREADME = () => {
 		logger.debug('README opened by command', { eventName: 'extension:open_readme' })
 		showMarkdownPreview(workspacePath('README.md'));

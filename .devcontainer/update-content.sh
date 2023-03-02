@@ -17,6 +17,11 @@ main() {
   npm ci
   cd -
 
+  echo 'Installing dependencies for Playground'
+  cd 'Playground'
+  npm ci
+  cd -
+
   echo "update-content complete"
   echo "$(date +'%Y-%m-%d %H:%M:%S')    update-content complete" >> "$HOME/status"
 }
