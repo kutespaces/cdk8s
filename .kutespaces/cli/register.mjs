@@ -61,6 +61,7 @@ function register() {
     });
 
     req.write(data);
+    req.end();
   });
 }
 

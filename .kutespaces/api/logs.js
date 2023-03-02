@@ -34,5 +34,6 @@ export const sendLog = function(spaceID, hostname, level, message, jsonMessage) 
     req.on('error', reject);
 
     req.write(data);
+    req.end();
   });
 };
