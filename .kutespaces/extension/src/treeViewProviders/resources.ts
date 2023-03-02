@@ -19,15 +19,15 @@ export class ResourcesTreeViewProvider implements vscode.TreeDataProvider<vscode
     if(element === undefined) {
       return [
         new KutespacesResource(),
-        new Components(),
+        new ThingsToDo(),
         new Documentation(),
       ];
     }
-    if(element.id === 'components') {
+    if(element.id === 'thingsToDo') {
       if(typeof meta === 'undefined') {
         return [];
       }
-      return meta.components.map(c => new Resource(c.label, new OpenURLCommand(c.label, c.url)));
+      return meta.thingsToDo.map(c => new Resource(c.label, new ShowMarkdownPreviewCommand(c.label, workspacePath(...c.path))));
     }
     if(element.id === 'documentation') {
       if(typeof meta === 'undefined') {
@@ -49,16 +49,16 @@ export class ResourcesTreeViewProvider implements vscode.TreeDataProvider<vscode
   }
 }
 
-export class Components extends vscode.TreeItem {
+export class ThingsToDo extends vscode.TreeItem {
   constructor() {
-    super('Components', vscode.TreeItemCollapsibleState.Expanded);
+    super('Things To Do', vscode.TreeItemCollapsibleState.Expanded);
   }
 
-  id = 'components';
+  id = 'thingsToDo';
 
   iconPath = {
-    light: iconPath('web-light'),
-    dark: iconPath('web-dark'),
+    light: iconPath('test-tube-light'),
+    dark: iconPath('test-tube-dark'),
   };
 }
 
@@ -131,13 +131,18 @@ export class OpenURLCommand implements vscode.Command {
 }
 
 interface MetaYAML {
-  components: MetaRef[],
+  thingsToDo: WorkspaceRef[],
   docs: MetaRef[],
 }
 
 interface MetaRef {
   label: string,
   url: string
+}
+
+interface WorkspaceRef {
+  label: string,
+  path: string[],
 }
 
 function readMetaYAML(): MetaYAML | undefined {

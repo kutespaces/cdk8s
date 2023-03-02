@@ -30,19 +30,17 @@ cdk8s apps only *define* Kubernetes applications, they do not apply the resource
 
 ## How To Use This
 
-* This space is pre-configured for **cdk8s with TypeScript**. Don't worry if you want to use another language – the concepts are identical.
-
 * There are **two missions** for you to solve:
 
-  * **Mission 1** is about understanding the concept. You will define your first, simple app consisting of a namespace and a pod.
+  * **Mission 1** is about understanding what cdk8s does. You will define your first app in TypeScript and synthesize YAML from it.
 
   * **Mission 2** shows you how cdk8s+ abstractions make your life as a Kubernetes developer easier.
 
-* The **Kutespace inspector** will guide you through.
+* The **Kutespace inspector** is your command center.
 
   Click on the **Kutespaces Icon** in the side bar to open it.
 
-  ![Kutespace inspector side bar icon](doc/kutespace-inspector-icon.png)
+  ![Kutespaces Inspector Icon](doc/Kutespaces-Inspector.png)
 
   Make yourself familiar with the environment and click **Start Next Mission** when you're ready. 🚀
 

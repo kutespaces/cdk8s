@@ -34,6 +34,12 @@ export class MyChart extends Chart {
     // 2. Expose Podinfo through an Ingress
 
     // const _ingress = deployment.exposeViaIngress('/');
+
+    // When you've created the Deployment and Ingress, head over to the Ports panel.
+    // Open the 'Traefik Ingress' port to check out podinfo.
+
+    // Troubleshooting: If you can't find the Ports panel, press CMD+Shift+p.
+    //                  Type 'Ports: Focus on Ports View'.
   }
 }
 

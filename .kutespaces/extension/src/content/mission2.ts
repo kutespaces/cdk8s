@@ -9,7 +9,7 @@ import { logger } from '../log';
 
 export const metadata = {
   id: 2,
-  description: 'Using Abstractions',
+  description: 'cdk8s+ & Abstractions',
   basePath: workspacePath('Mission 2'),
   tasks: [
     {

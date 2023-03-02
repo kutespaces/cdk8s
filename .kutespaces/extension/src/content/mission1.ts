@@ -10,7 +10,7 @@ import controller from "../model/mission-controller";
 
 export const metadata = {
   id: 1,
-  description: 'First Steps with CDK8s',
+  description: 'First Steps with cdk8s',
   tasks: [
     {
       id: 'createNamespace',
