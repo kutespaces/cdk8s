@@ -1,10 +1,6 @@
 thingsToDo:
-- label: Mission 1 (First Steps)
-  path: [doc, Kutespaces-Inspector.md]
-- label: Mission 2 (cdk8s+ & Abstractions)
-  path: [doc, Kutespaces-Inspector.md]
-# - label: Use the Playground
-#   path: [Playground, README.md]
+- label: 'Free Play: Build Your Own Playground'
+  path: [Playground, README.md]
 docs:
 - label: cdk8s Documentation
   url: https://cdk8s.io/docs/latest/

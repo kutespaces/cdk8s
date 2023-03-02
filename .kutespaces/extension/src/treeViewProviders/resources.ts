@@ -3,6 +3,7 @@ const YAML = require('yaml');
 import * as vscode from 'vscode';
 import { ShowMarkdownPreviewCommand } from './commands/show-markdown-preview';
 import { iconPath, workspacePath, workspacePathOrUndefined } from '../util';
+import { Store } from '../model/store';
 
 export class ResourcesTreeViewProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
   private _onDidChangeTreeData: vscode.EventEmitter<vscode.TreeItem | undefined | void> = new vscode.EventEmitter<vscode.TreeItem | undefined | void>();
@@ -10,6 +11,13 @@ export class ResourcesTreeViewProvider implements vscode.TreeDataProvider<vscode
   refresh(): void {
 		this._onDidChangeTreeData.fire();
 	}
+
+  private store: Store;
+
+  constructor(store: Store) {
+    this.store = store;
+    this.store.subscribe(this.refresh.bind(this));
+  }
 
   getTreeItem(element: vscode.TreeItem): vscode.TreeItem | Thenable<vscode.TreeItem> {
     return element;
@@ -24,10 +32,48 @@ export class ResourcesTreeViewProvider implements vscode.TreeDataProvider<vscode
       ];
     }
     if(element.id === 'thingsToDo') {
-      if(typeof meta === 'undefined') {
-        return [];
+      const state = this.store.getState().mission;
+      let thingsToDo: vscode.TreeItem[] = [];
+      for(const id in state.missions) {
+        const mission = state.missions[id];
+        const tags = [];
+        let theIconPath = {
+          light: iconPath('chevron-right-light'),
+          dark: iconPath('chevron-right-dark'),
+        };
+        if(mission.id === state.currentMission) {
+          tags.push('Current Mission');
+          theIconPath = {
+            light: iconPath('timer-sand-light'),
+            dark: iconPath('timer-sand-dark'),
+          };
+        }
+        if(typeof mission.tasks.find(t => !t.completed) === 'undefined') {
+          tags.push('Completed');
+          theIconPath = {
+            light: iconPath('flag-checkered-light'),
+            dark: iconPath('flag-checkered-dark'),
+          };
+        }
+        let suffix = '';
+        if(tags.length > 0) {
+          suffix = ` (${tags.join(', ')})`
+        }
+
+        thingsToDo.push(
+          new MissionItem(
+            mission.id.toString(),
+            `Mission ${mission.id}: ${mission.description}${suffix}`,
+            theIconPath,
+            workspacePathOrUndefined(`Mission ${mission.id}`, 'README.md'),
+          )
+        );
       }
-      return meta.thingsToDo.map(c => new Resource(c.label, new ShowMarkdownPreviewCommand(c.label, workspacePath(...c.path))));
+      if(typeof meta !== 'undefined' && 'thingsToDo' in meta) {
+        const thingsFromMeta = meta.thingsToDo.map(c => new Resource(c.label, new ShowMarkdownPreviewCommand(c.label, workspacePath(...c.path))));
+        thingsToDo = thingsToDo.concat(...thingsFromMeta);
+      }
+      return thingsToDo;
     }
     if(element.id === 'documentation') {
       if(typeof meta === 'undefined') {
@@ -153,4 +199,19 @@ function readMetaYAML(): MetaYAML | undefined {
   const contents = fs.readFileSync(uri.fsPath, 'utf8');
   const parsed = YAML.parse(contents);
   return parsed;
+}
+
+export class MissionItem extends vscode.TreeItem {
+  constructor(id: string, name: string, iconPath: { light: string, dark: string }, markdownUri: vscode.Uri | undefined) {
+    super(name, vscode.TreeItemCollapsibleState.Expanded)
+    this.id = id;
+    this.iconPath = iconPath;
+    if(typeof markdownUri !== 'undefined') {
+      this.command = new ShowMarkdownPreviewCommand(name, markdownUri);
+    }
+  }
+
+  id: string;
+  type: string = "mission"
+  collapsibleState = vscode.TreeItemCollapsibleState.None;
 }

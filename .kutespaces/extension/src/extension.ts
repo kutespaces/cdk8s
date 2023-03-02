@@ -2,7 +2,6 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { ResourcesTreeViewProvider } from './treeViewProviders/resources';
-import { MissionsListTreeViewProvider } from './treeViewProviders/missions-list';
 import { MissionTasksTreeViewProvider } from './treeViewProviders/mission-tasks';
 import { store } from './model/store';
 import { abortMission, completeMission, startNextMission } from './model/mission-slice';
@@ -16,8 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
 	logger.info('Kutespaces extension started', { eventName: 'extension:activate' });
 	mountMissions(store);
 
-	vscode.window.registerTreeDataProvider('kutespacesResources', new ResourcesTreeViewProvider());
-	vscode.window.registerTreeDataProvider('kutespacesMissionsList', new MissionsListTreeViewProvider(store));
+	vscode.window.registerTreeDataProvider('kutespacesResources', new ResourcesTreeViewProvider(store));
 	vscode.window.registerTreeDataProvider('kutespacesMissionTasks', new MissionTasksTreeViewProvider(store));
 
 	context.subscriptions.push(vscode.commands.registerCommand('kutespaces.revealInspector', () => {

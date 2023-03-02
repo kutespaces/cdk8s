@@ -83,10 +83,6 @@
           "name": "Resources"
         },
         {
-          "id": "kutespacesMissionsList",
-          "name": "Missions"
-        },
-        {
           "id": "kutespacesMissionTasks",
           "name": "Tasks"
         }
