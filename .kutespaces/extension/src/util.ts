@@ -28,18 +28,12 @@ export function workspacePathOrUndefined(...segments: string[]): vscode.Uri | un
   return fs.existsSync(pth.fsPath) ? pth : undefined;
 }
 
-export function createFileAndFolderIfNotExists(uri: vscode.Uri): Promise<vscode.Uri> {
-  return new Promise((resolve, reject) => {
-    try {
-      const folder = path.dirname(uri.fsPath);
-      fs.mkdirSync(folder, { recursive: true });
-      const fh = fs.openSync(uri.fsPath, 'a');
-      fs.closeSync(fh);
-    } catch(err) {
-      reject(err);
-    }
-    resolve(uri);
-  });
+export async function createFileAndFolderIfNotExists(uri: vscode.Uri): Promise<vscode.Uri> {
+  const folder = path.dirname(uri.fsPath);
+  await fs.promises.mkdir(folder, { recursive: true });
+  const fh = await fs.promises.open(uri.fsPath, 'a');
+  await fh.close();
+  return uri;
 }
 
 export function showMarkdownPreview(uri: vscode.Uri): void {

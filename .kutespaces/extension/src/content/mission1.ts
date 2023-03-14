@@ -32,7 +32,8 @@ const taskHandlers = {
     start: (store: Store) => {
       logger.info('createNamespace task started', { eventName: 'task:start', missionID: 1, taskID: 'createNamespace' });
       const mainTsUri = workspacePath('Mission 1', 'main.ts');
-      const outUri = workspacePath('Mission 1', 'dist', 'hello.k8s.yaml');
+      const outFile = workspacePath('Mission 1', 'dist', 'hello.k8s.yaml');
+      const createOutFile = createFileAndFolderIfNotExists(outFile);
       closeAllTabs()
         .then(
           () => vscode.workspace.openTextDocument(mainTsUri),
@@ -41,10 +42,13 @@ const taskHandlers = {
           doc => vscode.window.showTextDocument(doc),
         )
         .then(
-          () => createFileAndFolderIfNotExists(outUri),
+          () => createOutFile,
         )
         .then(
-          () => vscode.workspace.openTextDocument(outUri),
+          uri => {
+            logger.debug('Opening created file');
+            return vscode.workspace.openTextDocument(uri);
+          },
         )
         .then(
           doc => {
@@ -56,7 +60,7 @@ const taskHandlers = {
 
         const checkOutput = () => {
           logger.debug('Checking hello.k8s.yaml');
-          const docs = YAML.parseAllDocuments(readFileSync(outUri.fsPath, 'utf-8'));
+          const docs = YAML.parseAllDocuments(readFileSync(outFile.fsPath, 'utf-8'));
           for(const doc of docs) {
             let foundNs = undefined;
             let foundName = undefined;
@@ -75,16 +79,18 @@ const taskHandlers = {
             }
           }
         };
-        const watcher = watch(outUri.fsPath, {}, () => {
+        const watcher = watch(outFile.fsPath, {}, () => {
           logger.debug('File watcher for hello.k8s.yaml has triggered');
-          checkOutput();
+          createOutFile.then(() => checkOutput());
         });
         const interval = setInterval(() => {
           logger.debug('Interval for hello.k8s.yaml has triggered');
-          checkOutput();
+          createOutFile.then(() => checkOutput());
         }, 5000);
 
-      vscode.commands.executeCommand('workbench.action.tasks.runTask', 'Build Mission 1');
+      createOutFile.then(
+        () => vscode.commands.executeCommand('workbench.action.tasks.runTask', 'Build Mission 1'),
+      );
     },
     tearDown: () => {},
   },

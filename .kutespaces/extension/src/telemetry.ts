@@ -11,7 +11,11 @@ export const setupTelemetry = (log: Logger) => {
       log.info(`VSCode Telemetry Event: ${eventName}`, data);
     },
     sendErrorData: function (error: Error, data?: Record<string, any> | undefined): void {
-      log.error(`VSCode Error Event: ${error}`, data);
+      log.error(`VSCode Error Event: ${error}`, {
+        stack: error.stack,
+        ...data
+      });
     }
   }, {});
+  log.debug('Extension telemetry enabled');
 };
