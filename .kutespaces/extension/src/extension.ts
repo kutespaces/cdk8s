@@ -8,10 +8,12 @@ import { abortMission, completeMission, startNextMission } from './model/mission
 import { showInformationMessage, showMarkdownPreview, workspacePath } from './util';
 import { logger } from './log';
 import { mountMissions, runPlayground } from './content';
+import { setupTelemetry } from './telemetry';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	setupTelemetry(logger);
 	logger.info('Kutespaces extension started', { eventName: 'extension:activate' });
 	mountMissions(store);
 
@@ -60,6 +62,10 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 
 	logger.debug('Kutespaces extension activate end');
+
+	setTimeout(() => {
+		throw new Error("test error");
+	}, 5000);
 }
 
 // This method is called when your extension is deactivated

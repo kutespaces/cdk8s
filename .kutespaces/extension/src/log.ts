@@ -59,3 +59,5 @@ export const logger = winston.createLogger({
   defaultMeta: { spaceID },
   transports,
 });
+
+export type Logger = typeof logger;
