@@ -62,10 +62,6 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 
 	logger.debug('Kutespaces extension activate end');
-
-	setTimeout(() => {
-		throw new Error("test error");
-	}, 5000);
 }
 
 // This method is called when your extension is deactivated
