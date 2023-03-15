@@ -58,7 +58,7 @@ const taskHandlers = {
           err => handleError(err, 'Opening document in text editor'),
         );
 
-        const checkOutput = () => {
+        const checkOutput = async () => {
           logger.debug('Checking hello.k8s.yaml');
           const docs = YAML.parseAllDocuments(readFileSync(outFile.fsPath, 'utf-8'));
           for(const doc of docs) {
@@ -72,21 +72,21 @@ const taskHandlers = {
               logger.error(e);
             }
             if(foundNs && foundName) {
-              watcher.close();
-              clearInterval(interval);
+              (await watcher).close();
+              clearInterval(await interval);
               store.dispatch(completeTask({ missionID: 1, taskID: 'createNamespace' }));
               logger.info('createNamespace task completed', { eventName: 'task:complete', missionID: 1, taskID: 'createNamespace' });
             }
           }
         };
-        const watcher = watch(outFile.fsPath, {}, () => {
+        const watcher = createOutFile.then(() => watch(outFile.fsPath, {}, () => {
           logger.debug('File watcher for hello.k8s.yaml has triggered');
-          createOutFile.then(() => checkOutput());
-        });
-        const interval = setInterval(() => {
+          checkOutput();
+        }));
+        const interval = createOutFile.then(() => setInterval(() => {
           logger.debug('Interval for hello.k8s.yaml has triggered');
           createOutFile.then(() => checkOutput());
-        }, 5000);
+        }, 5000));
 
       createOutFile.then(
         () => vscode.commands.executeCommand('workbench.action.tasks.runTask', 'Build Mission 1'),
