@@ -8,7 +8,7 @@ FROM ghcr.io/cse-labs/k3d:latest
 SHELL ["/bin/bash", "-c"]
 
 # upgrade k3d
-RUN wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v5.4.6 bash
+RUN wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v5.6.0 bash
 
 RUN mkdir -p /.kutespaces/state \
  && chown vscode:vscode /.kutespaces/state
