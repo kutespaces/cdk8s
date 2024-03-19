@@ -18,7 +18,10 @@
 		"files.trimTrailingWhitespace": true,
 		"files.trimFinalNewlines": true,
 		"files.insertFinalNewline": true,
-		"workbench.welcomePage.walkthroughs.openOnInstall": false
+		"workbench.welcomePage.walkthroughs.openOnInstall": false,
+		"workbench.editorAssociations": {
+			"*.md": "vscode.markdown.preview.editor"
+		},
 	},
 	"hostRequirements": {
 		"cpus": 4
@@ -34,11 +37,7 @@
 	"extensions": [
 		"ms-azuretools.vscode-docker",
 		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"gruntfuggly.todo-tree",
 		"mutantdino.resourcemonitor",
-		"dbaeumer.vscode-eslint",
-		"redhat.vscode-yaml",
-		"davidbwaters.macos-modern-theme",
 		"/.kutespaces/extension.vsix"
 	],
 	"waitFor": "postCreateCommand",
